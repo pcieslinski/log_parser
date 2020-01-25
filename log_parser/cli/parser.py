@@ -9,16 +9,16 @@ parser = argparse.ArgumentParser(
 )
 
 parser.add_argument('file',
-                   type=str,
-                   help='Path to the log file.')
+                    type=str,
+                    help='Path to the log file.')
 
 parser.add_argument('--since',
-                   type=str,
-                   help='The date that marks the start of statistics generation.')
+                    type=str,
+                    help='The date that marks the start of statistics generation.')
 
 parser.add_argument('--until',
-                   type=str,
-                   help='The date that marks the end of statistics generation.')
+                    type=str,
+                    help='The date that marks the end of statistics generation.')
 
 
 def parse_args(args: List[str]) -> argparse.Namespace:
