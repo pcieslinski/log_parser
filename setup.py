@@ -7,7 +7,7 @@ setup(
     packages=['log_parser'],
     entry_points={
         'console_scripts': [
-            'log-parser = log_parser.__main__:main'
+            'log-parser = log_parser.__main__:runner'
         ]
     }
 )
