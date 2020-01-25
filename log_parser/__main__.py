@@ -1,15 +1,25 @@
-from log_parser.cli import parser
+import sys
+from typing import Union
+
+from log_parser.cli import parse_args
+from log_parser.request_counter import RequestCounter
 
 
-def main():
-    args = parser.parse_args()
+def main() -> None:
+    args = parse_args(sys.argv[1:])
 
-    file = args.file
-    since = args.since
-    until = args.until
+    counter = RequestCounter(args.file)
+    n_requests = counter.count_requests()
 
-    print(f'Values: path - {file.name}, since - {since}, until - {until}')
+    print(f'Number of requests: {n_requests}')
+
+
+def runner() -> Union[None, str]:
+    try:
+        main()
+    except Exception as exc:
+        return f'{exc.__class__.__name__}: {exc}'
 
 
 if __name__ == '__main__':
-    main()
+    runner()
