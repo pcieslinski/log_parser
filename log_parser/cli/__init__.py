@@ -1,1 +1,1 @@
-from log_parser.cli.parser import parse_args
+from log_parser.cli.args_parser import parse_args
