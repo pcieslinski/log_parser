@@ -2,16 +2,20 @@ import sys
 from typing import Union
 
 from log_parser.cli import parse_args
-from log_parser.request_counter import RequestCounter
+from log_parser.parser import parser
+from log_parser.commands import StatsCommand
 
 
 def main() -> None:
     args = parse_args(sys.argv[1:])
 
-    counter = RequestCounter(args.file)
-    n_requests = counter.count_requests()
+    command = StatsCommand(parser=parser)
+    statuses_counts, n_requests = command.run(args=args)
 
     print(f'Number of requests: {n_requests}')
+    print(f'Responses statuses count:')
+    for status, count in statuses_counts.items():
+        print(f'{status}: {count}')
 
 
 def runner() -> Union[None, str]:
