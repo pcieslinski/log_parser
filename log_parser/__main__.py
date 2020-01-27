@@ -10,7 +10,7 @@ def main() -> None:
     args = parse_args(sys.argv[1:])
 
     command = StatsCommand(parser=parser)
-    statuses_counts, n_requests, rate = command.run(args=args)
+    statuses_counts, n_requests, rate, avg_size_2xx = command.run(args=args)
 
     print(f'Number of requests: {n_requests}')
     print(f'Responses statuses count:')
@@ -18,6 +18,7 @@ def main() -> None:
         print(f'{status}: {count}')
 
     print(f'Requests per second: {rate}')
+    print(f'Average size of response for 2xx: {avg_size_2xx}')
 
 
 def runner() -> Union[None, str]:

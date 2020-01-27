@@ -11,11 +11,12 @@ class StatsCommand(ICommand):
     def __init__(self, parser: Parser) -> None:
         self.parser = parser
 
-    def run(self, args: Namespace) -> Tuple[Counter, int, float]:
+    def run(self, args: Namespace) -> Tuple[Counter, int, float, str]:
         data = list(self.parser.parse_log(args.file))
 
         n_requests = stat.NumberOfRequests.calculate(data)
         requests_per_seconds = stat.RequestsPerSecond.calculate(data)
         number_of_statuses = stat.NumberOfStatuses.calculate(data)
+        avg_size_for_2xx = stat.AverageResponseSize.calculate(data)
 
-        return number_of_statuses, n_requests, requests_per_seconds
+        return number_of_statuses, n_requests, requests_per_seconds, avg_size_for_2xx
