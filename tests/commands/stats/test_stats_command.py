@@ -1,5 +1,5 @@
 import pytest
-from mock import Mock
+from mock import Mock, patch
 from typing import List, Tuple
 from collections import Counter
 from dataclasses import dataclass
@@ -42,13 +42,22 @@ class TestStatsCommand:
         assert hasattr(command, 'parser')
         assert command.parser is mock_parser
 
-    def test_stats_command_runs_correctly(self, mock_parser_with_data, stub_args):
+    @patch('log_parser.commands.stats.statistics.NumberOfRequests.calculate')
+    @patch('log_parser.commands.stats.statistics.RequestsPerSecond.calculate')
+    @patch('log_parser.commands.stats.statistics.NumberOfStatuses.calculate')
+    def test_stats_command_runs_correctly(self, mock_n_statuses, mock_requests_per_second,
+                                          mock_n_requests, mock_parser_with_data, stub_args):
+        mock_n_statuses.return_value = Counter(['200', '200'])
+        mock_requests_per_second.return_value = 2.0
+        mock_n_requests.return_value = 2
+
         mock_parser, data = mock_parser_with_data
 
         command = StatsCommand(parser=mock_parser)
-        statuses_counts, n_requests = command.run(args=stub_args)
+        number_of_statuses, n_requests, requests_per_seconds = command.run(args=stub_args)
 
         mock_parser.parse_log.assert_called_once_with('./test.log2')
-        assert isinstance(statuses_counts, Counter)
-        assert statuses_counts['test_status'] == 2
+        assert isinstance(number_of_statuses, Counter)
+        assert number_of_statuses['200'] == 2
         assert n_requests == 2
+        assert requests_per_seconds == 2.0
