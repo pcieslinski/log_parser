@@ -1,11 +1,11 @@
+from typing import Callable
 from argparse import Namespace
-from collections import Counter
-from typing import Callable, Tuple
 from datetime import datetime as dt
 
 from log_parser.services import date_service
 from log_parser.parser.parser import Parser
 from log_parser.parser.log_line import LogLine
+from log_parser.renderers import StatsOutputRenderer
 from log_parser.commands.icommand import ICommand
 from log_parser.commands.stats import statistics as stat
 
@@ -38,7 +38,7 @@ class StatsCommand(ICommand):
 
         return is_earlier
 
-    def run(self, args: Namespace) -> Tuple[Counter, int, float, str]:
+    def run(self, args: Namespace) -> None:
         data = list(self.parser.parse_log(args.file))
 
         if args.since:
@@ -50,8 +50,13 @@ class StatsCommand(ICommand):
             data = list(filter(until_filter, data))
 
         n_requests = stat.NumberOfRequests.calculate(data)
-        requests_per_seconds = stat.RequestsPerSecond.calculate(data)
-        number_of_statuses = stat.NumberOfStatuses.calculate(data)
+        responses_statuses_count = stat.NumberOfStatuses.calculate(data)
+        requests_per_second = stat.RequestsPerSecond.calculate(data)
         avg_size_for_2xx = stat.AverageResponseSize.calculate(data)
 
-        return number_of_statuses, n_requests, requests_per_seconds, avg_size_for_2xx
+        StatsOutputRenderer(
+            n_requests=n_requests,
+            responses_statuses_count=responses_statuses_count,
+            requests_per_second=requests_per_second,
+            avg_size_for_2xx=avg_size_for_2xx
+        ).render()
