@@ -20,6 +20,11 @@ parser.add_argument('--until',
                     type=str,
                     help='The date that marks the end of statistics generation.')
 
+parser.add_argument('--verbose',
+                    '-v',
+                    action='store_true',
+                    help=argparse.SUPPRESS)
+
 
 def parse_args(args: List[str]) -> argparse.Namespace:
     return parser.parse_args(args)
