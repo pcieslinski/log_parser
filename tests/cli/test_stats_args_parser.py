@@ -1,7 +1,7 @@
 import pytest
 from argparse import Namespace
 
-from log_parser.cli import parse_args
+from log_parser.cli.stats_args_parser import stats_parse_args
 
 
 @pytest.mark.parametrize('args,file,since,until', [
@@ -22,8 +22,8 @@ from log_parser.cli import parse_args
            '2020-01-25'
     )
 ])
-def test_parse_args_return_correct_values_for_arguments(args, file, since, until):
-    parsed_args = parse_args(args)
+def test_stats_parse_args_return_correct_values_for_arguments(args, file, since, until):
+    parsed_args = stats_parse_args(args)
 
     assert isinstance(parsed_args, Namespace)
     assert parsed_args.file == file
