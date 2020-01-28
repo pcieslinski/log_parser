@@ -4,7 +4,7 @@ from log_parser.parser.log_line import LogLine
 class TestLogLine:
 
     def test_log_line_initialize_correctly(self, log_line_data):
-        log_line = LogLine(**log_line_data)
+        log_line = LogLine(**log_line_data[0])
 
         assert log_line.prefix == 'Nov 30 21:03:13 actify3-test-vm1 gunicorn[53253]'
         assert log_line.host == '172.16.3.14'

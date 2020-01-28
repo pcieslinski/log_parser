@@ -9,14 +9,6 @@ from log_parser.parser.log_line import LogLine
 
 
 @pytest.fixture
-def data(log_line_data) -> List[LogLine]:
-    return [
-        LogLine(**log_line_data),
-        LogLine(**log_line_data)
-    ]
-
-
-@pytest.fixture
 def mock_parser_with_data(data: List[LogLine]) -> Tuple[Mock, List[LogLine]]:
     parser = Mock()
     parser.parse_log.return_value = data
@@ -28,8 +20,10 @@ def stub_args() -> dataclass:
     @dataclass
     class StubArgs:
         file: str
+        since: str = None
+        until: str = None
 
-    return StubArgs(file='./test.log2')
+    return StubArgs
 
 
 class TestStatsCommand:
@@ -42,6 +36,22 @@ class TestStatsCommand:
         assert hasattr(command, 'parser')
         assert command.parser is mock_parser
 
+    def test_filter_since_works_correctly(self, data):
+        since_filter = StatsCommand.filter_since(since='30/Nov/2019:21:03:05')
+
+        result = list(filter(since_filter, data))
+
+        assert len(result) == 1
+        assert result[0].date == '30/Nov/2019:21:03:13 +0100'
+
+    def test_filter_until_works_correctly(self, data):
+        until_filter = StatsCommand.filter_until(until='30/Nov/2019:21:03:05')
+
+        result = list(filter(until_filter, data))
+
+        assert len(result) == 1
+        assert result[0].date == '30/Nov/2019:21:03:00 +0100'
+
     @patch('log_parser.commands.stats.statistics.NumberOfRequests.calculate')
     @patch('log_parser.commands.stats.statistics.RequestsPerSecond.calculate')
     @patch('log_parser.commands.stats.statistics.NumberOfStatuses.calculate')
@@ -49,6 +59,7 @@ class TestStatsCommand:
     def test_stats_command_runs_correctly(self, mock_avg_size, mock_n_statuses,
                                           mock_requests_per_second, mock_n_requests,
                                           mock_parser_with_data, stub_args):
+        stub_args = stub_args(file='./test.log2')
         mock_n_statuses.return_value = Counter(['200', '200'])
         mock_requests_per_second.return_value = 2.0
         mock_n_requests.return_value = 2
@@ -60,6 +71,11 @@ class TestStatsCommand:
         number_of_statuses, n_requests, requests_per_seconds, avg_size = command.run(args=stub_args)
 
         mock_parser.parse_log.assert_called_once_with('./test.log2')
+        mock_n_statuses.assert_called_once_with(data)
+        mock_requests_per_second.assert_called_once_with(data)
+        mock_n_requests.assert_called_once_with(data)
+        mock_avg_size.assert_called_once_with(data)
+
         assert isinstance(number_of_statuses, Counter)
         assert number_of_statuses['200'] == 2
         assert n_requests == 2

@@ -35,7 +35,7 @@ class TestParser:
                                                       log_line_data,
                                                       read_data):
         parser, mock_pattern = parser_with_mock_pattern
-        mock_pattern.match.return_value.groupdict.return_value = log_line_data
+        mock_pattern.match.return_value.groupdict.return_value = log_line_data[0]
 
         m = mock_open(read_data=read_data)
 
@@ -45,7 +45,7 @@ class TestParser:
 
             m.assert_called_once_with('./test.log2', 'r')
             mock_pattern.match.assert_called_once_with('REQUEST_DATA')
-            assert result == LogLine(**log_line_data)
+            assert result == LogLine(**log_line_data[0])
 
     def test_parse_log_returns_none_when_called_on_empty_file(self,
                                                               parser_with_mock_pattern):
