@@ -3,7 +3,7 @@ from typing import List
 
 
 parser = argparse.ArgumentParser(
-    prog='log-parser',
+    prog='log-parser stats',
     description='A CLI tool for parsing logs.'
                 ' Generates useful statistics and metrics based on the server log.'
 )
