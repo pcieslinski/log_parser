@@ -7,8 +7,8 @@ verify_ssl = true
 
 [packages]
 pytest = "*"
-log-parser = {editable = true,path = "."}
 mock = "*"
+log-parser = {editable = true,path = "."}
 
 [requires]
 python_version = "3.8"

@@ -1,32 +1,28 @@
 import sys
-from typing import Union
 
 from log_parser.cli import parse_args
 from log_parser.parser import parser
 from log_parser.commands import StatsCommand
+from log_parser.renderers import ErrorRenderer
+from log_parser.exceptions import LogParserException
 
 
 def main() -> None:
     args = parse_args(sys.argv[1:])
 
-    command = StatsCommand(parser=parser)
-    statuses_counts, n_requests, rate, avg_size_2xx = command.run(args=args)
-
-    print(f'Number of requests: {n_requests}')
-    print(f'Responses statuses count:')
-    for status, count in statuses_counts.items():
-        print(f'{status}: {count}')
-
-    print(f'Requests per second: {rate}')
-    print(f'Average size of response for 2xx: {avg_size_2xx}')
-
-
-def runner() -> Union[None, str]:
     try:
-        main()
+        command = StatsCommand(parser=parser)
+        command.run(args=args)
+    except LogParserException as exc:
+        ErrorRenderer(exc.message, exc.details, args.verbose, exc.type).render()
     except Exception as exc:
-        return f'{exc.__class__.__name__}: {exc}'
+        ErrorRenderer(
+            error='An unknown error occurred while the program was running.',
+            detail_error=exc,
+            verbose=args.verbose,
+            type='Exception'
+        ).render()
 
 
 if __name__ == '__main__':
-    runner()
+    main()

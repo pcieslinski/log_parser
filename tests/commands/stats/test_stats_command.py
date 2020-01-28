@@ -1,7 +1,6 @@
 import pytest
 from mock import Mock, patch
 from typing import List, Tuple
-from collections import Counter
 from dataclasses import dataclass
 
 from log_parser.commands import StatsCommand
@@ -60,24 +59,14 @@ class TestStatsCommand:
                                           mock_requests_per_second, mock_n_requests,
                                           mock_parser_with_data, stub_args):
         stub_args = stub_args(file='./test.log2')
-        mock_n_statuses.return_value = Counter(['200', '200'])
-        mock_requests_per_second.return_value = 2.0
-        mock_n_requests.return_value = 2
-        mock_avg_size.return_value = '1.0KB'
 
         mock_parser, data = mock_parser_with_data
 
         command = StatsCommand(parser=mock_parser)
-        number_of_statuses, n_requests, requests_per_seconds, avg_size = command.run(args=stub_args)
+        command.run(args=stub_args)
 
         mock_parser.parse_log.assert_called_once_with('./test.log2')
         mock_n_statuses.assert_called_once_with(data)
         mock_requests_per_second.assert_called_once_with(data)
         mock_n_requests.assert_called_once_with(data)
         mock_avg_size.assert_called_once_with(data)
-
-        assert isinstance(number_of_statuses, Counter)
-        assert number_of_statuses['200'] == 2
-        assert n_requests == 2
-        assert requests_per_seconds == 2.0
-        assert avg_size == '1.0KB'
