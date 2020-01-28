@@ -2,29 +2,33 @@ import argparse
 from typing import List
 
 
-parser = argparse.ArgumentParser(
+stats_parser = argparse.ArgumentParser(
     prog='log-parser stats',
     description='A CLI tool for parsing logs.'
                 ' Generates useful statistics and metrics based on the server log.'
 )
 
-parser.add_argument('file',
-                    type=str,
-                    help='Path to the log file.')
+stats_parser.add_argument('file',
+                          type=str,
+                          help='Path to the log file.')
 
-parser.add_argument('--since',
-                    type=str,
-                    help='The date that marks the start of statistics generation.')
+stats_parser.add_argument('--since',
+                          type=str,
+                          help=('Date from which statistics will be calculated.'
+                                ' Example: 01/Dec/2019:05:07:05')
+                                )
 
-parser.add_argument('--until',
-                    type=str,
-                    help='The date that marks the end of statistics generation.')
+stats_parser.add_argument('--until',
+                          type=str,
+                          help=('Date after which statistics will no longer be calculated.'
+                                ' Example: 01/Dec/2019:05:07:05')
+                          )
 
-parser.add_argument('--verbose',
-                    '-v',
-                    action='store_true',
-                    help=argparse.SUPPRESS)
+stats_parser.add_argument('--verbose',
+                          '-v',
+                          action='store_true',
+                          help=argparse.SUPPRESS)
 
 
-def parse_args(args: List[str]) -> argparse.Namespace:
-    return parser.parse_args(args)
+def stats_parse_args(args: List[str]) -> argparse.Namespace:
+    return stats_parser.parse_args(args)
