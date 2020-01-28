@@ -52,12 +52,12 @@ Get help for the stats command:
 ```bash
 log-parser stats -h
 ```
-
+\
 Calculating statistics for the entire log file.
 ```bash
 log-parser stats data/gunicorn.log2
 ```
-
+\
 The log file can also be filtered by date. The first way is 
 the `--since` flag. 
 
@@ -68,12 +68,12 @@ the full date in this format: `01/Dec/2019:05:07:05`
 ```bash
 log-parser stats data/gunicorn.log2 --since=01/Dec/2019:05:07:05
 ```
-
+\
 Another option for filtering by date is the `--until` flag:
 ```bash
 log-parser stats data/gunicorn.log2 --until=01/Dec/2019:05:07:05
 ```
-
+\
 Flags can appear together:
 ```bash
 log-parser stats data/gunicorn.log2 --since=01/Dec/2019:05:07:05 --until=01/Dec/2019:10:00:00
