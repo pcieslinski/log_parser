@@ -31,8 +31,10 @@ class LogParser:
         try:
             command = StatsCommand(parser=parser)
             command.run(args=args)
+
         except LogParserException as exc:
             ErrorRenderer(exc.message, exc.details, args.verbose, exc.type).render()
+
         except Exception as exc:
             ErrorRenderer(
                 error='An unknown error occurred while the program was running.',
