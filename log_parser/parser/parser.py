@@ -20,8 +20,6 @@ class Parser:
 
         with open(file_path, 'r') as f:
             try:
-                next(f)  # skip header
-
                 for line in f:
                     match = self.pattern.match(line)
 
