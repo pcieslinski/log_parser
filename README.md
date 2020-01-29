@@ -9,7 +9,7 @@ and statistics.
 ## Quickstart
 The package manager used in the project is [Pipenv](https://pipenv.kennethreitz.org/en/latest/).
 
-The installation of the log-parser is very simple.. You should be 
+The installation of the log-parser is very simple. You should be 
 in the root directory of the project and run the following command:
 
 ```bash
@@ -22,7 +22,7 @@ Uninstalling is also easy.
 pipenv uninstall log-parser
 ```
 
-In the `data` directory in the project there is an example log 
+In the `./data` directory in the project there is an example log 
 file on which you can test the operation of the application.
 
 ## Usage
