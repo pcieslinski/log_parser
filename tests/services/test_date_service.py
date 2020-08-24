@@ -13,9 +13,9 @@ class TestDateService:
 
     def test_date_service_initialize_correctly(self, date_service):
         assert isinstance(date_service, DateService)
-        assert date_service.date_format == '%d/%b/%Y:%H:%M:%S'
-        assert date_service.date_base_index == 0
-        assert date_service.date_utc_index == 1
+        assert date_service.DATE_FORMAT == '%d/%b/%Y:%H:%M:%S'
+        assert date_service.DATE_BASE_INDEX == 0
+        assert date_service.DATE_UTC_INDEX == 1
 
     def test_date_service_property_format_returns_date_format(self, date_service):
         assert date_service.format == '%d/%b/%Y:%H:%M:%S'
