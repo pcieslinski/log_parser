@@ -4,14 +4,14 @@ from log_parser.parser.log_line import LogLine
 
 
 class DateService:
-    date_format = '%d/%b/%Y:%H:%M:%S'
-    date_base_index = 0
-    date_utc_index = 1
+    DATE_FORMAT = '%d/%b/%Y:%H:%M:%S'
+    DATE_BASE_INDEX = 0
+    DATE_UTC_INDEX = 1
 
     def extract_date(self, log_line: LogLine) -> dt.datetime:
-        date = log_line.date.split(' ')[self.date_base_index]
-        return dt.datetime.strptime(date, self.date_format)
+        date = log_line.date.split(' ')[self.DATE_BASE_INDEX]
+        return dt.datetime.strptime(date, self.DATE_FORMAT)
 
     @property
     def format(self):
-        return self.date_format
+        return self.DATE_FORMAT

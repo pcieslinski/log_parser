@@ -1,5 +1,5 @@
-from typing import NewType, List
 from abc import ABC
+from typing import NewType, List
 
 from log_parser.parser.log_line import LogLine
 
