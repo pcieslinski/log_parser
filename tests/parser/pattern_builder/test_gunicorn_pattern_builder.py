@@ -5,7 +5,6 @@ from log_parser.parser.pattern_builder import GunicornPatternBuilder
 from log_parser.parser.pattern_builder.ipattern_builder import PatternBuilder
 
 
-
 @pytest.fixture
 def builder() -> PatternBuilder:
     builder = GunicornPatternBuilder()

@@ -71,4 +71,4 @@ class TestParser:
         parser, _ = parser_with_mock_pattern
         with pytest.raises(LogParserException):
             generator = parser.parse_log(file_path='./test.log2')
-            result = list(generator)
+            list(generator)

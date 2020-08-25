@@ -41,7 +41,7 @@ class TestErrorRenderer:
             verbose=True,
             type='test_type'
         )
-        
+
         with mock.patch('sys.stdout', new=StringIO()) as rendered_message:
             renderer.render()
             assert rendered_message.getvalue() == 'test_type\ntest_detail_error\n'
