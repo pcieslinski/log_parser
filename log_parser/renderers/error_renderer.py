@@ -18,4 +18,4 @@ class ErrorRenderer(IRenderer):
             print(f'{self.type}')
             print(f'{self.error}')
             if self.detailed_error != self.error and not self.verbose:
-                print(f'\nRun with `--verbose/-v` to get more detailed error message')
+                print('\nRun with `--verbose/-v` to get more detailed error message')

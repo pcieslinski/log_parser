@@ -19,7 +19,7 @@ class StatsOutputRenderer(IRenderer):
     def render(self) -> None:
         print(f'Number of requests: {self.n_requests}')
 
-        print(f'Responses statuses count:')
+        print('Responses statuses count:')
         for status, count in self.responses_statuses_count.items():
             print(f'{status}: {count}')
 

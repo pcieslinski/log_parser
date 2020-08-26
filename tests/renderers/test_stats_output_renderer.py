@@ -3,12 +3,12 @@ import pytest
 from io import StringIO
 from collections import Counter
 
-from log_parser.renderers.irenderer import Renderer
+from log_parser.renderers.irenderer import IRenderer
 from log_parser.renderers import StatsOutputRenderer
 
 
 @pytest.fixture
-def renderer() -> Renderer:
+def renderer() -> IRenderer:
     return StatsOutputRenderer(
             n_requests=10,
             responses_statuses_count=Counter(['200', '200']),

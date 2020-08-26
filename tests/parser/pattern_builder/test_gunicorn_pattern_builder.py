@@ -2,12 +2,11 @@ import re
 import pytest
 
 from log_parser.parser.pattern_builder import GunicornPatternBuilder
-from log_parser.parser.pattern_builder.ipattern_builder import PatternBuilder
-
+from log_parser.parser.pattern_builder.ipattern_builder import IPatternBuilder
 
 
 @pytest.fixture
-def builder() -> PatternBuilder:
+def builder() -> IPatternBuilder:
     builder = GunicornPatternBuilder()
     builder.new_pattern()
     return builder

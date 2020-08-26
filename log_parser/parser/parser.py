@@ -1,6 +1,6 @@
 import os
 from re import Pattern
-from typing import Iterator, Union
+from typing import Iterator
 
 from log_parser.parser.log_line import LogLine
 from log_parser.exceptions import LogParserException
@@ -10,7 +10,7 @@ class Parser:
     def __init__(self, pattern: Pattern) -> None:
         self.pattern = pattern
 
-    def parse_log(self, file_path: str) -> Union[Iterator[LogLine], None]:
+    def parse_log(self, file_path: str) -> Iterator[LogLine]:
 
         if not os.path.isfile(file_path):
             raise LogParserException(
@@ -27,4 +27,4 @@ class Parser:
                         yield LogLine(**match.groupdict())
 
             except StopIteration:
-                return None
+                return
