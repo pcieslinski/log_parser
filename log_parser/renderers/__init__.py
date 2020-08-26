@@ -3,6 +3,6 @@ from log_parser.renderers.stats_output_renderer import StatsOutputRenderer
 
 
 __all__ = [
-    ErrorRenderer,
-    StatsOutputRenderer
+    "ErrorRenderer",
+    "StatsOutputRenderer"
 ]

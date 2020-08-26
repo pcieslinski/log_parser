@@ -1,12 +1,8 @@
-from typing import NewType
 from abc import ABC, abstractmethod
 
 
 class IRenderer(ABC):
 
     @abstractmethod
-    def render(self, *args, **kwargs) -> None:
+    def render(self) -> None:
         pass
-
-
-Renderer = NewType('Renderer', IRenderer)

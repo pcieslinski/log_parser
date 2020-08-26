@@ -1,5 +1,5 @@
 import re
-from typing import NewType
+from typing import List
 from abc import ABC, abstractmethod
 
 
@@ -8,7 +8,7 @@ class IPatternBuilder(ABC):
         return re.compile(''.join(self._patterns))
 
     def new_pattern(self) -> None:
-        self._patterns = []
+        self._patterns: List[str] = []
 
     @abstractmethod
     def build_prefix_component_pattern(self) -> None:
@@ -49,6 +49,3 @@ class IPatternBuilder(ABC):
     @abstractmethod
     def build_user_agent_component_pattern(self) -> None:
         pass
-
-
-PatternBuilder = NewType('PatternBuilder', IPatternBuilder)

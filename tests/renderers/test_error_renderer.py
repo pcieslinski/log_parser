@@ -3,11 +3,11 @@ import pytest
 from io import StringIO
 
 from log_parser.renderers import ErrorRenderer
-from log_parser.renderers.irenderer import Renderer
+from log_parser.renderers.irenderer import IRenderer
 
 
 @pytest.fixture
-def renderer() -> Renderer:
+def renderer() -> IRenderer:
     return ErrorRenderer(
             error='test_error',
             detail_error='test_detail_error',

@@ -1,10 +1,10 @@
 from re import Pattern
 
-from log_parser.parser.pattern_builder.ipattern_builder import PatternBuilder
+from log_parser.parser.pattern_builder.ipattern_builder import IPatternBuilder
 
 
 class Director:
-    def __init__(self, builder: PatternBuilder) -> None:
+    def __init__(self, builder: IPatternBuilder) -> None:
         self._builder = builder
 
     def build_pattern(self) -> None:
