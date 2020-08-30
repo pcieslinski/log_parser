@@ -89,6 +89,34 @@ log-parser stats data/gunicorn.log2 --since=01/Dec/2019:05:07:05 --until=01/Dec/
 
 ## Project structure
 
+```
+log_parser
+├── __init__.py
+├── __main__.py
+├── cli
+│   ├── __init__.py
+│   ├── args_parsers.py
+│   └── log_parser.py
+├── commands
+│   ├── __init__.py
+│   ├── icommand.py
+│   └── stats
+├── exceptions.py
+├── parser
+│   ├── __init__.py
+│   ├── log_line.py
+│   ├── parser.py
+│   └── pattern_builder
+├── renderers
+│   ├── __init__.py
+│   ├── error_renderer.py
+│   ├── irenderer.py
+│   └── stats_output_renderer.py
+└── services
+    ├── __init__.py
+    └── date_service.py
+```
+
 ### CLI
 In `./cli` directory there is the main program skeleton and 
 individual argument parsers. The addition of another subcommand
