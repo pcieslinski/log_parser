@@ -4,8 +4,7 @@ from log_parser.parser import parser
 from log_parser.commands import StatsCommand
 from log_parser.renderers import ErrorRenderer
 from log_parser.exceptions import LogParserException
-from log_parser.cli.main_args_parser import main_parse_args
-from log_parser.cli.stats_args_parser import stats_parse_args
+from log_parser.cli.args_parsers import main_parse_args, stats_parse_args
 
 
 class LogParser:

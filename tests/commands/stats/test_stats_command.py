@@ -55,9 +55,10 @@ class TestStatsCommand:
     @patch('log_parser.commands.stats.statistics.RequestsPerSecond.calculate')
     @patch('log_parser.commands.stats.statistics.NumberOfStatuses.calculate')
     @patch('log_parser.commands.stats.statistics.AverageResponseSize.calculate')
-    def test_stats_command_runs_correctly(self, mock_avg_size, mock_n_statuses,
-                                          mock_requests_per_second, mock_n_requests,
-                                          mock_parser_with_data, stub_args):
+    def test_stats_command_runs_correctly(
+            self, mock_avg_size, mock_n_statuses, mock_requests_per_second,
+            mock_n_requests, mock_parser_with_data, stub_args
+    ):
         stub_args = stub_args(file='./test.log2')
 
         mock_parser, data = mock_parser_with_data
