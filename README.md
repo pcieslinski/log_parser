@@ -22,6 +22,12 @@ Uninstalling is also easy.
 pipenv uninstall log-parser
 ```
 
+To run tests:
+
+```bash
+pytest tests
+```
+
 In the `./data` directory in the project there is an example log 
 file on which you can test the operation of the application.
 
